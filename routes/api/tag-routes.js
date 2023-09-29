@@ -35,7 +35,8 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   // create a new tag
   try {
-  const tagData = await Tag.create(req.body);
+  const tagData = await Tag.create({
+    tag_name: req.body.tag_name});
     res.status(200).json(categoryData);
   } catch (err) {
     res.status(400).json(err);
@@ -49,7 +50,7 @@ router.put('/:id', (req, res) => {
   },
   {
   where: {
-    tag_id: req.params.tag_id,
+    id: req.params.id,
   }
   })
   .then((updatedTag) => {
@@ -65,7 +66,7 @@ router.delete('/:id', (req, res) => {
   // delete on tag by its `id` value
   Tag.destroy({
     where: {
-      tag_id: req.params.tag_id,
+      id: req.params.id,
     },
   })
     .then((deletedTag) => {
